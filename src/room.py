@@ -5,13 +5,7 @@ class Room:
     def __init__(self, name, description): 
         self.name = name
         self.description = description
-        self.n
-        self.s
-        self.e
-        self.w
-
-    def __str__ (self):
-        return f'{self.name} has {len(self.description)} description'
- 
-room = Room([], [""])
-print(room)
+        self.n_to = None
+        self.s_to = None
+        self.e_to = None
+        self.w_to = None
