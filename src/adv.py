@@ -23,6 +23,14 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
 
+# items in game
+
+items = {
+    'hoj': Item("Hammer of Justice", "This hammer deals more that just a pounding!"),
+    'mbs': Item("Massive Boom Stick", "Cuz you can\'t not have a stick without the boom!"),
+    'lbff': Item("Little Bunny Foo Foo", "Think about it...")
+}
+
 
 # Link rooms together
 
