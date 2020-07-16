@@ -1,5 +1,6 @@
 from room import Room
 from player import Player
+import textwrap
 
 # Declare all the rooms
 
@@ -36,16 +37,15 @@ room['treasure'].s_to = room['narrow']
 
 #
 # Main
-#
+print ("Welcome to Adventure Game!")
 
 # Make a new player object that is currently in the 'outside' room.
-player = Player(room['outside'])
+player = Player('Player 1', room['outside'])
 
 # Write a loop that:
-while True:
 
 # * Prints the current room name
-    current_room = player
+
 # * Prints the current description (the textwrap module might be useful here).
 # * Waits for user input and decides what to do.
 #
@@ -53,3 +53,41 @@ while True:
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+user_input = None
+while user_input != 'q':
+    print('\n' + player.current_room.name +
+          '\n' + textwrap.fill(player.current_room.description, 50))
+    user_input = input(
+        "\nWhich way? (Input: n, s, e, w). Use 'q' to quit.\n")
+    player.current_room = move_to(user_input)
+
+def move_to(user_input):
+    if user_input == 'n':
+        if player.current_room.n_to is None:
+            print('\nYou don\'t want to go that way!\nGo back to the...')
+            return player.current_room
+        else:
+            return player.current_room.n_to
+    if user_input == 's':
+        if player.current_room.s_to is None:
+            print('\nYou don\'t want to go that way!\nGo back to the...')
+            return player.current_room
+        else:
+            return player.current_room.s_to
+    if user_input == 'e':
+        if player.current_room.e_to is None:
+            print('\nYou don\'t want to go that way!\nGo back to the...')
+            return player.current_room
+        else:
+            return player.current_room.e_to
+    if user_input == 'w':
+        if player.current_room.w_to is None:
+            print('\nYou don\'t want to go that way!\nGo back to the...')
+            return player.current_room
+        else:
+            return player.current_room.w_to
+    elif user_input != 'q':
+        print('\nAre you lost?\nGo back to the...')
+        return player.current_room
+
