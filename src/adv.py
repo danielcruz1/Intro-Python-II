@@ -1,4 +1,6 @@
 from room import Room
+from player import Player
+from item import Item
 
 # Declare all the rooms
 
@@ -21,7 +23,6 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
 
-
 # Link rooms together
 
 room['outside'].n_to = room['foyer']
@@ -33,15 +34,27 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+
+# items in game
+
+items = {
+    'hoj': Item("Hammer of Justice", "This hammer deals more that just a pounding!"),
+    'mbs': Item("Massive Boom Stick", "Cuz you can\'t have a stick without the boom!"),
+    'lbff': Item("Little Bunny Foo Foo", "Think about it...")
+}
+
+
 #
 # Main
-#
+print ("Welcome to Adventure Game!")
 
 # Make a new player object that is currently in the 'outside' room.
+player = Player('Player 1', room['outside'])
 
 # Write a loop that:
-#
+
 # * Prints the current room name
+
 # * Prints the current description (the textwrap module might be useful here).
 # * Waits for user input and decides what to do.
 #
@@ -49,3 +62,40 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+def move_to(user_input):
+    if user_input == 'n':
+        if player.current_room.n_to is None:
+            print('\nYou don\'t want to go that way!\nGo back to the...')
+            return player.current_room
+        else:
+            return player.current_room.n_to
+    if user_input == 's':
+        if player.current_room.s_to is None:
+            print('\nYou don\'t want to go that way!\nGo back to the...')
+            return player.current_room
+        else:
+            return player.current_room.s_to
+    if user_input == 'e':
+        if player.current_room.e_to is None:
+            print('\nYou don\'t want to go that way!\nGo back to the...')
+            return player.current_room
+        else:
+            return player.current_room.e_to
+    if user_input == 'w':
+        if player.current_room.w_to is None:
+            print('\nYou don\'t want to go that way!\nGo back to the...')
+            return player.current_room
+        else:
+            return player.current_room.w_to
+    elif user_input != 'q':
+        print('\nAre you lost?\nGo back to the...')
+        return player.current_room
+
+user_input = None
+while user_input != 'q':
+    print('\n' + player.current_room.name +
+          '\n' + player.current_room.description)
+    user_input = input(
+        "\nWhich way? (Input: n, s, e, w). Use 'q' to quit.\n")
+    player.current_room = move_to(user_input)
