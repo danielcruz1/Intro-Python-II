@@ -14,10 +14,18 @@ class Room:
     def __str__(self):
         return f'{self.name}, {self.description}'
 
-    def list_items(self):
-        if not self.items:
-            print("There are no items in this room.")
+# need list items, add items, remove items
+
+    def item_list(self):
+        for item in self.items:
+            print(item)   
+
+    def add_item(self, item):
+        for item in self.items:
+            self.items.append(item)
+
+    def remove_item(self, item):
+        if item in self.items:
+            self.items.remove(item)
         else:
-            print("In this room, you find: ")
-            for item in self.items:
-                print(item.name)
+            print(f'{item} not found.')

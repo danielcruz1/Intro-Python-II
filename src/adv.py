@@ -1,7 +1,6 @@
 from room import Room
 from player import Player
 from item import Item
-import textwrap
 
 # Declare all the rooms
 
@@ -24,15 +23,6 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
 
-# items in game
-
-items = {
-    'hoj': Item("Hammer of Justice", "This hammer deals more that just a pounding!"),
-    'mbs': Item("Massive Boom Stick", "Cuz you can\'t not have a stick without the boom!"),
-    'lbff': Item("Little Bunny Foo Foo", "Think about it...")
-}
-
-
 # Link rooms together
 
 room['outside'].n_to = room['foyer']
@@ -43,6 +33,16 @@ room['overlook'].s_to = room['foyer']
 room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
+
+
+# items in game
+
+items = {
+    'hoj': Item("Hammer of Justice", "This hammer deals more that just a pounding!"),
+    'mbs': Item("Massive Boom Stick", "Cuz you can\'t have a stick without the boom!"),
+    'lbff': Item("Little Bunny Foo Foo", "Think about it...")
+}
+
 
 #
 # Main
@@ -62,14 +62,6 @@ player = Player('Player 1', room['outside'])
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
-
-user_input = None
-while user_input != 'q':
-    print('\n' + player.current_room.name +
-          '\n' + textwrap.fill(player.current_room.description, 50))
-    user_input = input(
-        "\nWhich way? (Input: n, s, e, w). Use 'q' to quit.\n")
-    player.current_room = move_to(user_input)
 
 def move_to(user_input):
     if user_input == 'n':
@@ -100,3 +92,10 @@ def move_to(user_input):
         print('\nAre you lost?\nGo back to the...')
         return player.current_room
 
+user_input = None
+while user_input != 'q':
+    print('\n' + player.current_room.name +
+          '\n' + player.current_room.description)
+    user_input = input(
+        "\nWhich way? (Input: n, s, e, w). Use 'q' to quit.\n")
+    player.current_room = move_to(user_input)
